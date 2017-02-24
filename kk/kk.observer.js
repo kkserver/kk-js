@@ -132,7 +132,7 @@
 			this.object = value;
 		}
 		else {
-			if(typeof this.object != "object")
+			if(typeof this.object != "object"){
 				this.object = {};
 			}
 			kk.set(this.object,keys,value);
