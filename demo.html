@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+	<script type="text/javascript" src="kk/kk.js"></script>
+	<script type="text/javascript" src="kk/kk.object.js"></script>
+	<script type="text/javascript" src="kk/kk.observer.js"></script>
+	<script type="text/javascript">
+		
+		data = kk.Observer.alloc();
+
+		data.on("object.title",function(keys){
+			console.info(keys,data.get("object.title"));
+		});
+
+		data.on("object.name",function(keys){
+			console.info(keys,data.get("object.name"));
+		});
+
+		data.on("object",function(keys){
+			console.info(keys);
+		});
+
+	</script>
+</body>
+</html>

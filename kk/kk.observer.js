@@ -69,7 +69,7 @@
 			var fns = this._fns.slice();
 			for(var n=0;n<fns.length;n++) {
 				var fn = fns[n];
-				fn.apply(null,arguments)
+				fn(keys);
 			}
 			for(var key in this._observers) {
 				var v = this._observers[key];
@@ -87,18 +87,22 @@
 			}
 			for(var n=0;n<fns.length;n++) {
 				var fn = fns[n];
-				fn.apply(null,arguments)
+				fn(keys);
 			}
 			var v = this._observers[key];
 			if(v !== undefined) {
-				v.change.apply(v,[keys,i + 1].concat(arguments.slice(2)));
+				v.change.apply(v,[keys,i + 1]);
 			}
 		}
 		else {
 			var fns = this._fns.slice();
 			for(var n=0;n<fns.length;n++) {
 				var fn = fns[n];
-				fn.apply(null,arguments)
+				fn(keys);
+			}
+			for(var key in this._observers) {
+				var v = this._observers[key];
+				v.change.apply(v,arguments);
 			}
 		}
 
@@ -149,6 +153,33 @@
 		}
 		else if(typeof keys == 'string') {
 			this.key.change(keys.split('.'),0,this);
+		}
+	};
+
+	kk.Observer.prototype.on = function(keys,fn,bubble) {
+		if(bubble) {
+			fn.bubble = true;
+		}
+		if(keys === undefined || keys == '_') {
+			this.key.on([],0,fn);
+		}
+		else if(keys instanceof Array) {
+			this.key.on(keys,0,fn);
+		}
+		else if(typeof keys == 'string') {
+			this.key.on(keys.split('.'),0,fn);
+		}
+	};
+
+	kk.Observer.prototype.off = function(keys,fn) {
+		if(keys === undefined || keys == '_') {
+			this.key.off([],0,fn);
+		}
+		else if(keys instanceof Array) {
+			this.key.off(keys,0,fn);
+		}
+		else if(typeof keys == 'string') {
+			this.key.off(keys.split('.'),0,fn);
 		}
 	};
 	
