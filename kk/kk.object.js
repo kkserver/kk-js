@@ -21,9 +21,9 @@
 		}
 		
 		var v = object;
-		
-		while(keys.length >0 ){
-			key = keys.shift();
+
+		for(var i=0;i<keys.length;i++){
+			key = keys[i];
 			if(typeof v == 'object') {
 				v = v[key];
 			}
@@ -46,12 +46,12 @@
 		}
 		
 		var v = object;
-		
-		while(keys.length >0 ){
+
+		for(var i=0;i<keys.length;i++){
 			
-			key = keys.shift();
+			key = keys[i];
 			
-			if(keys.length == 0) {
+			if(i == keys.length - 1) {
 				v[key] = value;
 			}
 			else {
